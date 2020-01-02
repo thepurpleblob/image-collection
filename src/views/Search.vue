@@ -4,7 +4,7 @@
             <v-col cols="10">
                 <v-form @submit.prevent="doSearch">
                     <v-text-field v-model="searchtext" label="Search our database">
-                        
+                        <v-img :src="apiurl + image.reproduction_reference" />
                     </v-text-field>
                 </v-form>
             </v-col>

@@ -4,12 +4,10 @@ import config from '@/config/config.js'
 export default {
 
     findimages: function(searchtext) {
-        return axios.get(config.apiurl, {
-            params: {
-                action: 'findimages',
-                searchtext: searchtext
-            }
-        })
+        let data = new FormData()
+        data.append('action', 'findimages')
+        data.append('searchtext', searchtext)
+        return axios.post(config.apiurl, data)
     }
 
 }
