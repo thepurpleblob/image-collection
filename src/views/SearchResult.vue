@@ -25,6 +25,7 @@
         },
         mounted: function() {
             let result = wsclient.findimages(this.searchtext);
+            window.console.log(result)
             let v = this;
             result.then(function(response) {
                 v.images = response.data;

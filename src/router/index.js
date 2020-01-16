@@ -10,7 +10,8 @@ const routes = [
   {
     path: '/search',
     //name: 'home',
-    component: Search
+    component: Search,
+    alias: '/',
   },
   {
     path: '/searchresult',
