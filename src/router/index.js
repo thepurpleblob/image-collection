@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Search from '../views/Search.vue'
 import SearchResult from '../views/SearchResult.vue'
 import Item from '@/views/Item.vue'
+import Login from '@/views/Login.vue'
 
 Vue.use(VueRouter)
 
@@ -24,6 +25,11 @@ const routes = [
     name: '/item',
     component: Item,
     props: true
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: Login
   }
 ]
 
