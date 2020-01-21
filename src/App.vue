@@ -19,8 +19,15 @@ export default {
   },
 
   data: () => ({
-    //
+      user: {}
   }),
+
+  methods: {
+      loggedin: function(loggedinuser) {
+          this.user = loggedinuser
+          window.console.log('got here too!')
+      }
+  }
 };
 </script>
 

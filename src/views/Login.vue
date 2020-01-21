@@ -2,7 +2,7 @@
     <v-container>
         <v-row justify="center">
             <v-col cols="5">
-                <div>{{ error }}</div>
+                <v-alert type="error" v-if="error">{{ error }}</v-alert>
                 <v-form @submit.prevent="doLogin">
                     <v-text-field v-model="username" label="Username"></v-text-field>
                     <v-text-field v-model="password" label="Password" :type="'password'"></v-text-field>
@@ -25,11 +25,16 @@
         methods: {
             doLogin: function() {
                 let result = wsclient.authenticate(this.username, this.password)
+                let v = this
                 result.then(function(response) {
                     let user = response.data;
-                    window.console.log(user)
+                    if (!user) {
+                        v.error = 'Invalid login'
+                    } else {
+                        window.console.log('got here')
+                        v.$emit('loggedin', user)
+                    }
                 })
-                window.console.log(result);
             }
         }
     }
