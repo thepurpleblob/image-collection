@@ -31,8 +31,8 @@
                     if (!user) {
                         v.error = 'Invalid login'
                     } else {
-                        window.console.log('got here')
-                        v.$emit('loggedin', user)
+                        window.console.log(user)
+                        v.$store.commit('setuser', user)
                     }
                 })
             }
