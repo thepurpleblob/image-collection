@@ -1,5 +1,5 @@
 export default {
 
-    apiurl: "http://ubuntu.local/image-server/api.php",
-    imageurl: "http://ubuntu.local/image-server/data"
+    apiurl: "http://pc164-239.cent.gla.ac.uk/image-server/api.php",
+    imageurl: "http://pc164-239.cent.gla.ac.uk/image-server/data"
 }
