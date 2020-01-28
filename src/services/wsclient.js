@@ -16,6 +16,13 @@ export default {
         data.append('username', username)
         data.append('password', password)
         return axios.post(config.apiurl, data)
-    }
+    },
+
+    findsingle: function(objectnumber) {
+        let data = new FormData()
+        data.append('action', 'findsingle')
+        data.append('objectnumber', objectnumber)
+        return axios.post(config.apiurl, data)
+    },
 
 }

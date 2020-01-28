@@ -1,13 +1,31 @@
 <template>
     <v-container>
         <v-row>
-            <v-col v-for="image in images" :key="image.id" cols="3" @click="showsingle(image.object_number)">
+            <h2>Results for search '{{ searchtitle }}'</h2>
+        </v-row>
+        <v-row>
+            <v-col 
+                v-for="image in images" 
+                :key="image.id" 
+                cols="3" 
+                @click="showsingle(image.object_number)"
+                >
                 <v-card class="mx-auto" min-height="300px">
-                    <v-img 
+                    <v-img
+                        v-if="image.exists" 
                         :src="apiurl + image.reproduction_reference"
                         min-height="275px"
                         aspect-ratio="1"
-                        lazy-src="@/assets/loading.jpg"
+                        lazy-src="@/assets/imageload.png"
+                        :style="{cursor: 'pointer'}"
+                    >
+                    </v-img>
+                    <v-img
+                        v-if="!image.exists"
+                        min-height="275px"
+                        aspect-ratio="1"
+                        lazy-src="@/assets/imageload.png"
+                        :style="{cursor: 'pointer'}"
                     >
                     </v-img>
                     <v-card-text>{{ image.title }}</v-card-text>
@@ -28,13 +46,32 @@
             images: [],
             apiurl: config.imageurl + '/',
         }),
+        computed: {
+            searchtitle: function() {
+                return this.$store.state.searchtext
+            }
+        },
         methods: {
             showsingle: function(object_number) {
-                window.console.log(object_number)
+                this.$router.push({
+                    name: 'single',
+                    params: {
+                        objectnumber: object_number
+                    }
+                });
             }
         },
         mounted: function() {
-            let result = wsclient.findimages(this.searchtext);
+            let search = this.searchtext
+
+            // We store search string in vuex in case we end up back here 
+            // (e.g. browser back button)
+            if (!search) {
+                search = this.$store.state.searchtext
+            } else {
+                this.$store.commit('setsearchtext', search)
+            }
+            let result = wsclient.findimages(search);
             let v = this;
             result.then(function(response) {
                 v.images = response.data;
