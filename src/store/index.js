@@ -14,7 +14,6 @@ export default new Vuex.Store({
           state.user.timemodified = Date.now()
       },
       setsearchtext(state, search) {
-          window.console.log('Setting search text ' + search)
           state.searchtext = search
       }
   },

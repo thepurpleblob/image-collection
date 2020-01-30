@@ -50,7 +50,6 @@
             let v = this;
             result.then(function(response) {
                 v.image = response.data;
-                window.console.log(v.image)
             })         
         },
     }

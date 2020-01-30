@@ -71,6 +71,12 @@
             } else {
                 this.$store.commit('setsearchtext', search)
             }
+
+            // If, for some reason, searchtext is empty no point going further
+            if (!search) {
+                this.$router.push('search');
+            }
+
             let result = wsclient.findimages(search);
             let v = this;
             result.then(function(response) {

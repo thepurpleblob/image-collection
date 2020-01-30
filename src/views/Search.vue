@@ -1,6 +1,6 @@
 <template>
     <v-container>
-        <v-row>
+        <v-row class="mt-10">
             <v-col cols="10">
                 <v-form @submit.prevent="doSearch">
                     <v-text-field v-model="searchtext" label="Search our database">
@@ -13,7 +13,6 @@
 </template>
 
 <script>
-
     export default {
         data: () => ({
           searchtext: '',
