@@ -23,8 +23,21 @@ export default {
   },
 
   data: () => ({
-      user: {}
+      user: {},
+      //publicPath: process.$env.BASE_URL,
   }),
+
+  mounted: function() {
+      let t = this
+      fetch('/config.json')
+          .then(function(result) {
+              return result.json()    
+          })
+          .then(function(conf) {
+              t.$store.commit('setconfig', conf)
+              window.console.log(conf)
+          })
+  },
 
   methods: {
       loggedin: function(loggedinuser) {

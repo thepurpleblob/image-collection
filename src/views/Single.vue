@@ -34,19 +34,25 @@
 
 <script>
     import wsclient from '@/services/wsclient.js';
-    import config from '@/config/config.js'
 
     export default {
         props: ['objectnumber'],
         data: () => ({
             image: {},
-            apiurl: config.imageurl + '/',
         }),
+
+        computed: {
+            apiurl: function() {
+                return this.$store.state.config.imageurl + '/'
+            }
+        },
+
         methods: {
 
         },
+
         mounted: function() {
-            let result = wsclient.findsingle(this.objectnumber);
+            let result = wsclient.findsingle(this, this.objectnumber);
             let v = this;
             result.then(function(response) {
                 v.image = response.data;

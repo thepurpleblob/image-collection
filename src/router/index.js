@@ -3,7 +3,6 @@ import VueRouter from 'vue-router'
 import Search from '../views/Search.vue'
 import SearchResult from '../views/SearchResult.vue'
 import Single from '../views/Single.vue'
-import Item from '@/views/Item.vue'
 import Login from '@/views/Login.vue'
 
 Vue.use(VueRouter)
@@ -25,12 +24,6 @@ const routes = [
     path: '/single',
     name: 'single',
     component: Single,
-    props: true
-  },
-  {
-    path: '/item/:objectnumber',
-    name: '/item',
-    component: Item,
     props: true
   },
   {

@@ -37,18 +37,19 @@
 
 <script>
     import wsclient from '@/services/wsclient.js';
-    import config from '@/config/config.js'
 
     export default {
         props: ['searchtext'],
         data: () => ({
             resulttext: '',
             images: [],
-            apiurl: config.imageurl + '/',
         }),
         computed: {
             searchtitle: function() {
                 return this.$store.state.searchtext
+            },
+            apiurl: function() {
+                return this.$store.state.config.imageurl + '/'
             }
         },
         methods: {
@@ -77,7 +78,7 @@
                 this.$router.push('search');
             }
 
-            let result = wsclient.findimages(search);
+            let result = wsclient.findimages(this, search);
             let v = this;
             result.then(function(response) {
                 v.images = response.data;
