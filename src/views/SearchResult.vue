@@ -28,7 +28,10 @@
                         :style="{cursor: 'pointer'}"
                     >
                     </v-img>
-                    <v-card-text>{{ image.title }}</v-card-text>
+                    <v-card-text>
+                        {{ image.title }}
+                        <div v-if="debug"><small>Img path: <a :href="apiurl + image.reproduction_reference">{{apiurl + image.reproduction_reference}}</a></small></div>
+                    </v-card-text>
                 </v-card>
             </v-col>
         </v-row>
@@ -50,6 +53,9 @@
             },
             apiurl: function() {
                 return this.$store.state.config.imageurl + '/'
+            },
+            debug: function() {
+                return this.$store.state.config.debug
             }
         },
         methods: {
