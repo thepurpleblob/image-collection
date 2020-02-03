@@ -30,7 +30,10 @@
                     </v-img>
                     <v-card-text>
                         {{ image.title }}
-                        <div v-if="debug"><small>Img path: <a :href="apiurl + image.reproduction_reference">{{apiurl + image.reproduction_reference}}</a></small></div>
+                        <div v-if="debug"><small>
+                            Img path: <a :href="apiurl + image.reproduction_reference">{{apiurl + image.reproduction_reference}}</a><br />
+                            Exists? <span v-if="image.exists">True</span><span v-else>False</span>
+                        </small></div>
                     </v-card-text>
                 </v-card>
             </v-col>
