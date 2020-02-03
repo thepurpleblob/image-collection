@@ -6,8 +6,9 @@
         <v-row>
             <v-col 
                 v-for="image in images" 
-                :key="image.id" 
-                cols="3" 
+                :key="image.id"
+                lg="2"
+                md="3"
                 @click="showsingle(image.object_number)"
                 >
                 <v-card class="mx-auto" min-height="300px">

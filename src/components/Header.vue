@@ -8,6 +8,7 @@
                 max-height="118px"
                 :style="{cursor: 'pointer'}"
                 @click="home" />
+            <v-toolbar-title class="ml-8 display-1">Museum Collection</v-toolbar-title>
         </v-app-bar>  
     </header>  
 </template>
