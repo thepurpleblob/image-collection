@@ -9,7 +9,14 @@
                 :style="{cursor: 'pointer'}"
                 @click="home" />
             <v-toolbar-title class="ml-8 display-1">Museum Collection</v-toolbar-title>
+
         </v-app-bar>  
+        <v-bottom-navigation class="mt-4">
+            <v-btn to="search">
+                <span>Search</span>
+                <v-icon>mdi-heart</v-icon>
+            </v-btn>
+        </v-bottom-navigation>
     </header>  
 </template>
 

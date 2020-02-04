@@ -8,6 +8,9 @@
                         label="Search our database"
                         append-icon="search">
                     </v-text-field>
+                    <v-btn dark color="pink" type="submit">
+                        Search
+                    </v-btn>
                 </v-form>
             </v-col>
         </v-row>
