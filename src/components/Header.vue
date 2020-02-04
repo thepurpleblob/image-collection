@@ -8,10 +8,10 @@
                 max-height="118px"
                 :style="{cursor: 'pointer'}"
                 @click="home" />
-            <v-toolbar-title class="ml-8 display-1">Museum Collection</v-toolbar-title>
+            <v-toolbar-title class="ml-8 display-1">Online collections database</v-toolbar-title>
 
         </v-app-bar>  
-        <v-bottom-navigation class="mt-4">
+        <v-bottom-navigation v-if="loggedin" class="mt-4">
             <v-btn to="search">
                 <span>Search</span>
                 <v-icon>mdi-heart</v-icon>
@@ -25,6 +25,12 @@
     data: () => ({
       drawer: null,
     }),
+
+    computed: {
+        loggedin: function() {
+            return (Object.keys(this.$store.state.user).length !== 0 ? true : false)
+        }
+    },
 
     methods: {
       home: function() {
