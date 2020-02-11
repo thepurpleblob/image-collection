@@ -1,5 +1,5 @@
 <template>
-    <v-footer elevation="20" color="white">
+    <v-footer app elevation="20" color="white">
         <v-row justify="space-between">
             <v-col md="4">
                 <v-img
