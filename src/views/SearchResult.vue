@@ -1,7 +1,10 @@
 <template>
     <v-container>
-        <v-row>
+        <v-row v-if="anyimages">
             <h2>Results for search '{{ searchtitle }}'</h2>
+        </v-row>
+        <v-row cloak v-else>
+            <v-alert cloak type="info">No images found for search '{{ searchtext }}'</v-alert>
         </v-row>
         <v-row>
             <v-col 
@@ -39,6 +42,11 @@
                 </v-card>
             </v-col>
         </v-row>
+        <v-row class="mt-4">
+            <v-col>
+                <v-btn color="info" to="search">Back to Search</v-btn>
+            </v-col>
+        </v-row>
     </v-container>
 </template>
 
@@ -50,6 +58,7 @@
         data: () => ({
             resulttext: '',
             images: [],
+            anyimages: true,
         }),
         computed: {
             searchtitle: function() {
@@ -92,6 +101,7 @@
             let v = this;
             result.then(function(response) {
                 v.images = response.data;
+                v.anyimages = !(v.images === undefined || v.images.length == 0)
             })
             .catch(function() {
                 v.$router.push('servererror')

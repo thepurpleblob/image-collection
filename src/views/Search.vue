@@ -12,7 +12,7 @@
            </v-col>
        </v-row>    
 
-        <v-row class="mt-10">
+        <v-row class="mt-10 mb-10">
             <v-col cols="10">
                 <v-form @submit.prevent="doSearch">
                     <v-text-field

@@ -1,5 +1,7 @@
 <template>
-  <v-container>
-    <h1>This is an about page</h1>
-  </v-container>
+    <v-container>
+        <div class="about">
+            This website allows you to search our Collections database
+        </div>
+    </v-container>
 </template>
