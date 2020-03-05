@@ -92,7 +92,10 @@
             let v = this;
             result.then(function(response) {
                 v.images = response.data;
-            })         
+            })
+            .catch(function() {
+                v.$router.push('servererror')
+            })     
         },
     }
 </script>

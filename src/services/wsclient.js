@@ -24,4 +24,11 @@ export default {
         return axios.post(t.$store.state.config['apiurl'], data)
     },
 
+    uploadcsvdata: function(t, csvdata) {
+        let data = new FormData()
+        data.append('action', 'uploadcsvdata')
+        data.append('csvdata', csvdata)
+        return axios.post(t.$store.state.config['apiurl'], data)
+    }
+
 }

@@ -28,14 +28,13 @@ export default {
   }),
 
   mounted: function() {
-      let t = this
+      let v = this
       fetch('/config.json')
           .then(function(result) {
               return result.json()    
           })
           .then(function(conf) {
-              t.$store.commit('setconfig', conf)
-              window.console.log(conf)
+              v.$store.commit('setconfig', conf)
           })
   },
 
