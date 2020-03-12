@@ -8,6 +8,7 @@ export default new Vuex.Store({
       config: {},
       user: {},
       searchtext: '',
+      wantspath: '',
   },
   mutations: {
       setconfig(state, c) {
@@ -19,7 +20,10 @@ export default new Vuex.Store({
       },
       setsearchtext(state, search) {
           state.searchtext = search
-      }
+      },
+      setwantspath(state, path) {
+          state.wantspath = path
+      },
   },
   actions: {
   },

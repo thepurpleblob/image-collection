@@ -56,23 +56,38 @@
             </div>
         </v-row>
 
+        <v-row v-if="uploaded">
+            <v-alert type="success">
+                Data was uploaded.
+                <span v-if="errorcount">
+                    {{ errorcount }} lines were skipped due to errors.
+                </span>
+            </v-alert>
+        </v-row>
+
     </v-container>
 </template>
 
 <script>
-    import wsclient from '@/services/wsclient.js';
+    import wsclient from '@/services/wsclient.js'
     import csvparse from 'csv-parse'
 
     export default {
         data: () => ({
           chosenFile: null,
           csvdata: [],
+          errors: [],
           waiting: false,
+          uploaded: false,
         }),
 
         computed: {
             isanydata: function() {
                 return this.csvdata.length !== 0
+            },
+
+            errorcount: function() {
+                return this.errors.length
             },
 
             headeritems: function() {
@@ -86,28 +101,45 @@
 
         methods: {
             doUpload: function() {
-                //let filename = this.chosenFile.name
+                let filename = this.chosenFile.name
+                let extension = filename.split('.').pop()
+                window.console.log(filename, extension)
                 let reader = new FileReader()
                 let v = this
                 this.waiting = true
-                reader.readAsText(this.chosenFile)
-                reader.onload = function() {
-                    let csvdata = reader.result
-                     csvparse(csvdata, {}, function(err, output) {
-                         v.csvdata = output
-                         v.waiting = false
-                     })
+                if (extension == 'csv') {
+                    reader.readAsText(this.chosenFile)
+                    reader.onload = function() {
+                        let csvdata = reader.result
+                        csvparse(csvdata, {}, function(err, output) {
+                            v.csvdata = output
+                            v.waiting = false
+                        })
+                    }
+                } else if (extension == 'zip') {
+                    let result = wsclient.uploadzipfile(this.chosenFile);
+                    let v = this
+                    result.then(function(result) {
+                        window.console.log(result)
+                        v.uploaded = true
+                    })
+                    this.waiting = false
                 }
             },
 
             sendData: function() {
                 this.waiting = true
-                let result = wsclient.uploadcsvdata(this, JSON.stringify(this.csvdata))
+                let result = wsclient.uploadcsvdata(JSON.stringify(this.csvdata))
                 let v = this
                 result.then(function(response) {
                     v.waiting = false
-                    window.console.log(response)
+                    v.csvdata = []
+                    v.errors = response.data
+                    v.uploaded = true
                 })
+                .catch(function() {
+                    v.$router.push('servererror')
+                }) 
             }
         }
     }

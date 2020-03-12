@@ -23,6 +23,14 @@
                         <v-list-item-title>About</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
+                <v-list-item v-if="loggedin" link to="upload">
+                    <v-list-item-action>
+                        <v-icon>mdi-information-outline</v-icon>
+                    </v-list-item-action>
+                    <v-list-item-content>
+                        <v-list-item-title>Upload data</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
                 <v-list-item link>
                     <v-list-item-action>
                         <v-icon>mdi-at</v-icon>
@@ -49,6 +57,8 @@
 </template>
 
 <script>
+  import auth from '@/services/auth.js'
+
   export default {
     data: () => ({
       drawer: true,
@@ -56,7 +66,7 @@
 
     computed: {
         loggedin: function() {
-            return (Object.keys(this.$store.state.user).length !== 0 ? true : false)
+            return auth.isloggedin()
         }
     },
 

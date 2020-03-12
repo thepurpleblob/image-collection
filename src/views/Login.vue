@@ -24,7 +24,7 @@
         }),
         methods: {
             doLogin: function() {
-                let result = wsclient.authenticate(this, this.username, this.password)
+                let result = wsclient.authenticate(this.username, this.password)
                 let v = this
                 result.then(function(response) {
                     let user = response.data;
@@ -32,7 +32,14 @@
                         v.error = 'Invalid login'
                     } else {
                         window.console.log(user)
+                        user.authtime = Math.floor(Date.now() / 1000)
                         v.$store.commit('setuser', user)
+                        let wantspath = v.$store.state.wantspath
+                        if (!wantspath == undefined) {
+                            wantspath = 'search'
+                        }
+                        v.$store.commit('setwantspath', '')
+                        v.$router.push(wantspath)
                     }
                 })
             }
