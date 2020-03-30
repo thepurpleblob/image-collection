@@ -9,6 +9,8 @@
       </v-container>  
     </v-content>
 
+    <fred @blah-de-blah="dofred"></fred>
+
   </v-app>
 </template>
 

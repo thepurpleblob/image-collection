@@ -3,6 +3,18 @@
 
         <v-row class="mt-10">
             <v-col cols="10">
+                <v-card>
+                    <v-card-text>
+                        Upload your CSV data or zip file of images here. <br />
+                        The CSV file's first row must contain headers and this will be used to set the order of the rest
+                        of the data. Matching object numbers will overwrite/update previous data in the database. 
+                    </v-card-text>
+                </v-card>
+            </v-col>
+        </v-row>
+
+        <v-row class="mt-10">
+            <v-col cols="10">
                     <v-file-input
                         v-model="chosenFile"
                         accept=".zip,.csv"

@@ -20,7 +20,24 @@
                         label="Search our database"
                         append-icon="search">
                     </v-text-field>
-                    <v-btn dark color="pink" type="submit">
+                    <v-expansion-panels>
+                        <v-expansion-panel>
+                            <v-expansion-panel-header>Advanced...</v-expansion-panel-header>
+                            <v-expansion-panel-content>
+                                <p class="font-weight-bold">Only search in these categories...</p>
+                                <v-row>
+                                    <v-col cols="3" v-for="category in categories" :key="category">
+                                        <v-switch
+                                            :label="category"
+                                            :value="category"
+                                            v-model="filtercats">
+                                        </v-switch>
+                                    </v-col>
+                                </v-row>
+                            </v-expansion-panel-content>
+                        </v-expansion-panel>
+                    </v-expansion-panels>
+                    <v-btn class="mt-5" dark color="pink" type="submit">
                         Search
                     </v-btn>
                 </v-form>
@@ -30,19 +47,38 @@
 </template>
 
 <script>
+    import wsclient from '@/services/wsclient.js'
+
     export default {
         data: () => ({
           searchtext: '',
+          categories: [],
+          filtercats: [],
         }),
+
         methods: {
             doSearch: function() {
                 this.$router.push({
                     name: 'searchresult',
                     params: {
-                        searchtext: this.searchtext
+                        searchtext: this.searchtext,
+                        filtercats: this.filtercats
                     }
                 });
             }
+        },
+
+        mounted: function() {
+            let v = this
+            let result = wsclient.getcategories()
+            window.console.log(result)
+            result.then(function(cats) {
+                window.console.log(cats.data)
+                v.categories = cats.data.map(field => field.object_category)
+            })
+            .catch(function(error) {
+                window.console.log('Error: ' + error)
+            })
         }
     }
 </script>

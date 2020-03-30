@@ -51,10 +51,10 @@
 </template>
 
 <script>
-    import wsclient from '@/services/wsclient.js';
+    import wsclient from '@/services/wsclient.js'
 
     export default {
-        props: ['searchtext'],
+        props: ['searchtext', 'filtercats'],
         data: () => ({
             resulttext: '',
             images: [],

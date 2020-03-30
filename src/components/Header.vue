@@ -25,7 +25,7 @@
                 </v-list-item>
                 <v-list-item v-if="loggedin" link to="upload">
                     <v-list-item-action>
-                        <v-icon>mdi-information-outline</v-icon>
+                        <v-icon>mdi-cloud-upload</v-icon>
                     </v-list-item-action>
                     <v-list-item-content>
                         <v-list-item-title>Upload data</v-list-item-title>
