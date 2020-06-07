@@ -54,7 +54,7 @@
         },
 
         mounted: function() {
-            let result = wsclient.findsingle(this.objectnumber);
+            let result = wsclient.findsingle(this.$store, this.objectnumber);
             let v = this;
             result.then(function(response) {
                 v.image = response.data;

@@ -70,10 +70,8 @@
 
         mounted: function() {
             let v = this
-            let result = wsclient.getcategories()
-            window.console.log(result)
+            let result = wsclient.getcategories(this.$store)
             result.then(function(cats) {
-                window.console.log(cats.data)
                 v.categories = cats.data.map(field => field.object_category)
             })
             .catch(function(error) {

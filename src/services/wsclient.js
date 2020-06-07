@@ -1,17 +1,17 @@
 import axios from 'axios';
-import store from '@/store'
 
 export default {
 
-    findimages: function(searchtext, filtercats) {
+    findimages: function(store, searchtext, filtercats) {
         let data = new FormData()
         data.append('action', 'findimages')
         data.append('searchtext', searchtext)
         data.append('filtercats', filtercats.join())
-        return axios.post(store.state.config['apiurl'], data)
+        var items = axios.post(store.state.config['apiurl'], data)
+        return items
     },
 
-    authenticate: function(username, password) {
+    authenticate: function(store, username, password) {
         let data = new FormData()
         data.append('action', 'authenticate')
         data.append('username', username)
@@ -19,35 +19,35 @@ export default {
         return axios.post(store.state.config['apiurl'], data)
     },
 
-    findsingle: function(objectnumber) {
+    findsingle: function(store, objectnumber) {
         let data = new FormData()
         data.append('action', 'findsingle')
         data.append('objectnumber', objectnumber)
         return axios.post(store.state.config['apiurl'], data)
     },
 
-    uploadcsvdata: function(csvdata) {
+    uploadcsvdata: function(store, csvdata) {
         let data = new FormData()
         data.append('action', 'uploadcsvdata')
         data.append('csvdata', csvdata)
         return axios.post(store.state.config['apiurl'], data)
     },
 
-    uploadzipfile: function(zipfile) {
+    uploadzipfile: function(store, zipfile) {
         let data = new FormData()
         data.append('action', 'uploadzipfile')
         data.append('zipfile', zipfile)
         return axios.post(store.state.config['apiurl'], data)
     },
 
-    loggedin: function(token) {
+    loggedin: function(store, token) {
         let data = new FormData()
         data.append('action', 'loggedin')
         data.append('token', token)
         return axios.post(store.state.config['apiurl'], data)
     },
 
-    getcategories: function() {
+    getcategories: function(store) {
         return axios.get(store.state.config['apiurl'] + '?action=getcategories')
     }
 

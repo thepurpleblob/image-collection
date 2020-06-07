@@ -97,7 +97,7 @@
                 this.$router.push('search');
             }
 
-            let result = wsclient.findimages(search);
+            let result = wsclient.findimages(this.$store, search, this.filtercats);
             let v = this;
             result.then(function(response) {
                 v.images = response.data;
