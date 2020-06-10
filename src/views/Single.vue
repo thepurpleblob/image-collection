@@ -45,7 +45,7 @@
 
         computed: {
             apiurl: function() {
-                return this.$store.state.config.imageurl + '/'
+                return process.env.VUE_APP_IMAGE_URL + '/'
             }
         },
 
@@ -54,7 +54,7 @@
         },
 
         mounted: function() {
-            let result = wsclient.findsingle(this.$store, this.objectnumber);
+            let result = wsclient.findsingle(this.objectnumber);
             let v = this;
             result.then(function(response) {
                 v.image = response.data;

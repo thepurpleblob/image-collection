@@ -2,53 +2,53 @@ import axios from 'axios';
 
 export default {
 
-    findimages: function(store, searchtext, filtercats) {
+    findimages: function(searchtext, filtercats) {
         let data = new FormData()
         data.append('action', 'findimages')
         data.append('searchtext', searchtext)
         data.append('filtercats', filtercats.join())
-        var items = axios.post(store.state.config['apiurl'], data)
+        var items = axios.post(process.env.VUE_APP_API_URL, data)
         return items
     },
 
-    authenticate: function(store, username, password) {
+    authenticate: function(username, password) {
         let data = new FormData()
         data.append('action', 'authenticate')
         data.append('username', username)
         data.append('password', password)
-        return axios.post(store.state.config['apiurl'], data)
+        return axios.post(process.env.VUE_APP_API_URL, data)
     },
 
-    findsingle: function(store, objectnumber) {
+    findsingle: function(objectnumber) {
         let data = new FormData()
         data.append('action', 'findsingle')
         data.append('objectnumber', objectnumber)
-        return axios.post(store.state.config['apiurl'], data)
+        return axios.post(process.env.VUE_APP_API_URL, data)
     },
 
-    uploadcsvdata: function(store, csvdata) {
+    uploadcsvdata: function(csvdata) {
         let data = new FormData()
         data.append('action', 'uploadcsvdata')
         data.append('csvdata', csvdata)
-        return axios.post(store.state.config['apiurl'], data)
+        return axios.post(process.env.VUE_APP_API_URL, data)
     },
 
-    uploadzipfile: function(store, zipfile) {
+    uploadzipfile: function(zipfile) {
         let data = new FormData()
         data.append('action', 'uploadzipfile')
         data.append('zipfile', zipfile)
-        return axios.post(store.state.config['apiurl'], data)
+        return axios.post(process.env.VUE_APP_API_URL, data)
     },
 
-    loggedin: function(store, token) {
+    loggedin: function(token) {
         let data = new FormData()
         data.append('action', 'loggedin')
         data.append('token', token)
-        return axios.post(store.state.config['apiurl'], data)
+        return axios.post(process.env.VUE_APP_API_URL, data)
     },
 
-    getcategories: function(store) {
-        return axios.get(store.state.config['apiurl'] + '?action=getcategories')
+    getcategories: function() {
+        return axios.get(process.env.VUE_APP_API_URL + '?action=getcategories')
     }
 
 }

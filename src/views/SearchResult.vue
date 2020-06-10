@@ -65,10 +65,10 @@
                 return this.$store.state.searchtext
             },
             apiurl: function() {
-                return this.$store.state.config.imageurl + '/'
+                return process.env.VUE_APP_IMAGE_URL + '/'
             },
             debug: function() {
-                return this.$store.state.config.debug
+                return process.env.VUE_APP_DEBUG
             }
         },
         methods: {
@@ -97,7 +97,7 @@
                 this.$router.push('search');
             }
 
-            let result = wsclient.findimages(this.$store, search, this.filtercats);
+            let result = wsclient.findimages(search, this.filtercats);
             let v = this;
             result.then(function(response) {
                 v.images = response.data;
