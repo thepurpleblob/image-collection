@@ -6,8 +6,8 @@
           app
           clipped
         >
-            <v-list dense>
-                <v-list-item link to="search">
+            <v-list dense class="text-lg">
+                <v-list-item link to="/search">
                     <v-list-item-action >
                         <v-icon>mdi-magnify</v-icon>
                     </v-list-item-action>
@@ -15,7 +15,7 @@
                         <v-list-item-title>Search</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
-                <v-list-item link to="about">
+                <v-list-item link to="/about">
                     <v-list-item-action>
                         <v-icon>mdi-information-outline</v-icon>
                     </v-list-item-action>
@@ -23,7 +23,7 @@
                         <v-list-item-title>About</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
-                <v-list-item v-if="loggedin" link to="upload">
+                <v-list-item v-if="loggedin" link to="/upload">
                     <v-list-item-action>
                         <v-icon>mdi-cloud-upload</v-icon>
                     </v-list-item-action>

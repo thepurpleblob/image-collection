@@ -18,25 +18,9 @@
                     <v-text-field
                         v-model="searchtext"
                         label="Search our database"
-                        append-icon="search">
+                        append-icon="">
                     </v-text-field>
-                    <v-expansion-panels>
-                        <v-expansion-panel>
-                            <v-expansion-panel-header>Advanced...</v-expansion-panel-header>
-                            <v-expansion-panel-content>
-                                <p class="font-weight-bold">Only search in these categories...</p>
-                                <v-row>
-                                    <v-col cols="3" v-for="category in categories" :key="category">
-                                        <v-switch
-                                            :label="category"
-                                            :value="category"
-                                            v-model="filtercats">
-                                        </v-switch>
-                                    </v-col>
-                                </v-row>
-                            </v-expansion-panel-content>
-                        </v-expansion-panel>
-                    </v-expansion-panels>
+
                     <v-btn class="mt-5" dark color="pink" type="submit">
                         Search
                     </v-btn>
@@ -47,12 +31,9 @@
 </template>
 
 <script>
-    import wsclient from '@/services/wsclient.js'
-
     export default {
         data: () => ({
           searchtext: '',
-          categories: [],
           filtercats: [],
         }),
 
@@ -69,14 +50,7 @@
         },
 
         mounted: function() {
-            let v = this
-            let result = wsclient.getcategories(this.$store)
-            result.then(function(cats) {
-                v.categories = cats.data.map(field => field.object_category)
-            })
-            .catch(function(error) {
-                window.console.log('Error: ' + error)
-            })
+
         }
     }
 </script>

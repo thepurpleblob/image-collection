@@ -4,7 +4,9 @@
 
     <v-content>
       <v-container fluid>
-        <router-view />
+        <keep-alive>
+          <router-view :key="$route.fullPath"></router-view>
+        </keep-alive>
         <Footer />
       </v-container>  
     </v-content>
@@ -41,4 +43,5 @@ export default {
   }
 };
 </script>
+
 

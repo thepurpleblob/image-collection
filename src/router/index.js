@@ -21,13 +21,13 @@ const routes = [
     alias: '/',
   },
   {
-    path: '/searchresult',
+    path: '/searchresult/:searchtext',
     name: 'searchresult',
     component: SearchResult,
     props: true
   },
   {
-    path: '/single',
+    path: '/single/:objectnumber',
     name: 'single',
     component: Single,
     props: true

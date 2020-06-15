@@ -6,6 +6,25 @@
         <v-row cloak v-else>
             <v-alert cloak type="info">No images found for search '{{ searchtext }}'</v-alert>
         </v-row>
+
+        <v-expansion-panels>
+            <v-expansion-panel>
+                <v-expansion-panel-header>Filter...</v-expansion-panel-header>
+                <v-expansion-panel-content>
+                    <p class="font-weight-bold">Only show these categories...</p>
+                    <v-row>
+                        <v-col cols="3" v-for="category in categories" :key="category">
+                            <v-switch
+                                :label="category"
+                                :value="category"
+                                v-model="filtercats">
+                            </v-switch>
+                        </v-col>
+                    </v-row>
+                </v-expansion-panel-content>
+            </v-expansion-panel>
+        </v-expansion-panels>
+
         <v-row>
             <v-col 
                 v-for="image in images" 
@@ -59,6 +78,8 @@
             resulttext: '',
             images: [],
             anyimages: true,
+            categories: [],
+            filtercats: []
         }),
         computed: {
             searchtitle: function() {
@@ -106,6 +127,14 @@
             .catch(function() {
                 v.$router.push('servererror')
             })     
+
+            let catresult = wsclient.getcategories(this.$store)
+            catresult.then(function(cats) {
+                v.categories = cats.data.map(field => field.object_category)
+            })
+            .catch(function(error) {
+                window.console.log('Error: ' + error)
+            })
         },
     }
 </script>
