@@ -28,7 +28,7 @@
                 <h2 class="mt-4">Description</h2>
                 {{ image.description }}
                 <br />
-                <v-btn color="info" to="/searchresult" class="mt-8">Back</v-btn>
+                <v-btn color="info" @click="doBack" class="mt-8">Back</v-btn>
             </v-col>
         </v-row>
     </v-container>
@@ -50,7 +50,9 @@
         },
 
         methods: {
-
+            doBack: function() {
+                this.$router.go(-1)
+            }
         },
 
         mounted: function() {

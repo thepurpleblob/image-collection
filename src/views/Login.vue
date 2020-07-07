@@ -43,6 +43,16 @@
                     }
                 })
             }
+        },
+
+        mounted: function() {
+            window.console.log('Login mounted')
+        },
+
+        activated: function() {
+            window.console.log('Login activated')
+            //this.username = ''
+            //this.password = ''
         }
     }
 </script>
