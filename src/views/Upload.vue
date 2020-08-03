@@ -13,23 +13,41 @@
             </v-col>
         </v-row>
 
-        <v-row class="mt-10">
+        <v-row v-if="state == 'completed'" class="mt-5">
+            <v-col>
+                <v-alert type="success">
+                    Data was uploaded.
+                    <span v-if="errorcount">
+                        {{ errorcount }} lines were skipped due to errors.
+                    </span>
+                </v-alert>
+            </v-col>
+        </v-row>
+
+        <v-row v-if="(state == 'ready' || state == 'completed') && !isanydata" class="mt-10">
             <v-col cols="10">
                     <v-file-input
                         v-model="chosenFile"
                         accept=".zip,.csv"
                         @change="doUpload()"
                         label="Upload zip or csv"
-                        append-icon="upload">
+                    >
                     </v-file-input>
             </v-col>
         </v-row>
 
-        <v-row v-if="waiting">
-            <v-progress-circular
-                indeterminate
-                color="primary"
-            ></v-progress-circular>
+        <v-row v-if="state == 'uploading'">
+            <v-col>
+                Uploading, please wait
+            </v-col>
+            <v-col>
+                <v-progress-linear
+                    v-model="percentCompleted"
+                    color="light-blue"
+                    height="10"
+                    striped
+                ></v-progress-linear>
+            </v-col>
         </v-row>
 
         <v-row v-if="isanydata">
@@ -68,14 +86,7 @@
             </div>
         </v-row>
 
-        <v-row v-if="uploaded">
-            <v-alert type="success">
-                Data was uploaded.
-                <span v-if="errorcount">
-                    {{ errorcount }} lines were skipped due to errors.
-                </span>
-            </v-alert>
-        </v-row>
+
 
     </v-container>
 </template>
@@ -86,11 +97,11 @@
 
     export default {
         data: () => ({
-          chosenFile: null,
+          chosenFile: [],
           csvdata: [],
           errors: [],
-          waiting: false,
-          uploaded: false,
+          state: 'ready',
+          percentCompleted: 0
         }),
 
         computed: {
@@ -118,36 +129,44 @@
                 window.console.log(filename, extension)
                 let reader = new FileReader()
                 let v = this
-                this.waiting = true
                 if (extension == 'csv') {
                     reader.readAsText(this.chosenFile)
                     reader.onload = function() {
                         let csvdata = reader.result
                         csvparse(csvdata, {}, function(err, output) {
                             v.csvdata = output
-                            v.waiting = false
+                            v.chosenFile = []
                         })
                     }
                 } else if (extension == 'zip') {
-                    let result = wsclient.uploadzipfile(this.chosenFile);
-                    let v = this
+                    this.state = 'uploading'
+                    this.percentCompleted = 0;
+                    let result = wsclient.uploadzipfile(this.chosenFile, function(progressEvent) {
+                        v.percentCompleted = Math.round( (progressEvent.loaded * 100) / progressEvent.total )
+                        window.console.log(v.percentCompleted)
+                    })
                     result.then(function(result) {
                         window.console.log(result)
-                        v.uploaded = true
+                        v.state = 'completed'
+                        v.chosenFile = []
                     })
-                    this.waiting = false
+                    
                 }
             },
 
             sendData: function() {
-                this.waiting = true
-                let result = wsclient.uploadcsvdata(JSON.stringify(this.csvdata))
+                this.state = 'uploading'
+                this.percentCompleted = 0
+                let result = wsclient.uploadcsvdata(JSON.stringify(this.csvdata), function(progressEvent) {
+                        v.percentCompleted = Math.round( (progressEvent.loaded * 100) / progressEvent.total )
+                        window.console.log(v.percentCompleted)
+                    })
                 let v = this
                 result.then(function(response) {
-                    v.waiting = false
                     v.csvdata = []
                     v.errors = response.data
-                    v.uploaded = true
+                    v.state = 'completed'
+                    v.chosenFile = []
                 })
                 .catch(function() {
                     v.$router.push('servererror')
