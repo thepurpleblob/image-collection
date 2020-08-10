@@ -168,8 +168,13 @@
                     v.state = 'completed'
                     v.chosenFile = []
                 })
-                .catch(function() {
-                    v.$router.push('servererror')
+                .catch(function(error) {
+                    window.console.log(error)
+                    if (error.response && error.response.status === 401) {
+                        v.$router.push('login');
+                    } else {
+                        v.$router.push('servererror')
+                    }
                 }) 
             }
         }
